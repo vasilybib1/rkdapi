@@ -32,6 +32,7 @@ public class Main{
     }catch(Exception e){}
   }
 
+  // new line
   // the loop in which all of the logic is hosted 
   public static void mainLoop() throws IOException{ 
     window = new Window(100, 100);
