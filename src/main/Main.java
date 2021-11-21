@@ -20,10 +20,11 @@ import java.awt.event.*;
 
 public class Main{
 
-  private static Window window;
+  private static ScrollableWindow window;
   private static Login logInScreen;
   private static DefaultScreen defaultScreen;
   private static Token t;
+  private static String[] info;
 
   // initiates the main loop
   public static void main(String[] args){
@@ -35,16 +36,17 @@ public class Main{
   // new line
   // the loop in which all of the logic is hosted 
   public static void mainLoop() throws IOException{ 
-    window = new Window(100, 100);
+    window = new ScrollableWindow("rkdapi", 500, 500);
     //logInScreen = new Login(window);
     logInScreen = new Login();
     window.addPanel(logInScreen.getPanel());
+    window.packWin();
     
     JButton but = logInScreen.getButton();
     but.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String[] info = logInScreen.getLogInDetails();
+        info = logInScreen.getLogInDetails();
         try{
           t = new Token(info[0], info[1], info[2]);
           boolean temp = t.makeToken();
@@ -52,12 +54,12 @@ public class Main{
             but.setText("Invalid Log In Information");
             logInScreen.reset();
           }else if(temp){
+
             window.clear();
             defaultScreen = new DefaultScreen(t);
             window.addPanel(defaultScreen.getPanel());
             window.packWin();
-            Utils.saveJsonAsFile(defaultScreen.getInfo(), 0);
-            Utils.saveJsonAsFile(defaultScreen.getInfo(), 1);
+
           }
         }catch(Exception ee){
           System.out.println(ee);
@@ -74,5 +76,8 @@ public class Main{
       return true;
     }else{ return false; }
   }
+
+  public static String[] getLogInDetails(){ return info; }
+  public static Token getT(){ return t; }
 
 }

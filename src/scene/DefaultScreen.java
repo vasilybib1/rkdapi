@@ -12,6 +12,7 @@ import org.json.*;
 
 import gui.*;
 import requests.*;
+import catalog.fundamentals.FinancialStatmentsReports;
 import main.Token;
 
 public class DefaultScreen{
@@ -27,26 +28,8 @@ public class DefaultScreen{
     t = tok;
   }
 
-  public JSONObject getInfo() throws IOException{
-
-    String url = "http://api.rkd.refinitiv.com/api/Fundamentals/Fundamentals.svc/REST/Fundamentals_1/GetFinancialStatementsReports_1";
-    String jsonString = "{\"GetFinancialStatementsReports_Request_1\":{\"companyId\":\"IBM.N\",\"companyIdType\":\"RIC\"}}";
-    String[][] set = new String[2][2];
-    
-    // abstraction explain it well - why did i think of it
-    set[0][0] = "X-Trkd-Auth-Token";
-    set[0][1] = t.getToken();
-
-    set[1][0] = "X-Trkd-Auth-ApplicationID";
-    set[1][1] = "rkdapi";
-
-    PostRequest fundamentals = new PostRequest(url, new JSONObject(jsonString), false);
-    JSONObject temp = fundamentals.sendPost(set);
-
-    return temp;
-  }
-
   public JPanel getPanel(){
-    return tab.getTable();
+    FinancialStatmentsReports reportIBM = new FinancialStatmentsReports("IBM.N", "RIC");
+    return reportIBM.getPanel();
   }
 }

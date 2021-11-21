@@ -32,7 +32,7 @@ public class Table{
 
         Insets in = new Insets(ind, ind, ind, ind);
         GridBagConstraints b = new GridBagConstraints();
-        Cell c = new Cell(1, 8);
+        Cell c = new Cell();
         cells[i][a] = c;
         
         b.gridx = a;

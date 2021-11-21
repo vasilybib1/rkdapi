@@ -59,13 +59,9 @@ public class Login{
 
   }
 
-  public JButton getButton(){
-    return button;
-  }
+  public JButton getButton(){ return button; }
 
-  public JPanel getPanel(){
-    return pan;
-  }
+  public JPanel getPanel(){ return pan; }
 
   public void reset(){
     appid.setMinimumSize(DIM);

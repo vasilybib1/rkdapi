@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Cell extends JTextArea{
 
-  public Cell(int h, int w){
+  public Cell(){
     this.setText("hold");
   }
 
