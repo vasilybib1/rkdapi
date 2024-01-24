@@ -3,11 +3,19 @@ package utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 import org.json.*;
 
+// DONE - Utils - adding comments
 public class Utils{
 
+  // REM - saving a json as a file 
+
+  // saves a JSONObject j as a .json file with teh name savedAsJson and than the index 
+  // the index allows me to save mutliple files when runnning the code and labeling them with the indexes
   public static boolean saveJsonAsFile(JSONObject j, int index){ 
     try{
       String fileName = "savedAsJson";
@@ -24,8 +32,8 @@ public class Utils{
         w.write(j.toString());
         w.close();
         System.out.println("json data writen to - "+fileName+index+".json\n");
-      }catch(Exception e){
-        e.printStackTrace();
+      }catch(Exception ee){
+        ee.printStackTrace();
         return false;
       }
       return true;
@@ -34,6 +42,15 @@ public class Utils{
       e.printStackTrace();
       return false;
     }
+  }
+
+  // REM - loading the json back 
+  
+  // readFile takes the path aka the file name and takes the encoding of the file 
+  // both of these are then used to read the file and a string is returned
+  public static String readFile(String path, Charset encoding) throws IOException{
+    byte[] encoded = Files.readAllBytes(Paths.get(path));
+    return new String(encoded, encoding);
   }
 
 }

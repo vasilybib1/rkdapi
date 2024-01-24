@@ -7,11 +7,13 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.awt.Font;
 
 import gui.*;
 import main.Token;
 import main.Main;
 
+// DONE - Login - adding comments 
 public class Login{
 
   private Insets in;
@@ -25,26 +27,39 @@ public class Login{
   private final int SIZE = 22;
   private final Dimension DIM = new Dimension(SIZE*10, SIZE);
 
+  private final String F = Main.getFont();
+  private final int S = Main.getSize();
+
   private JTextField appid;
   private JTextField user;
   private JPasswordField pass;
   private JButton button;
 
+  // default constructor for makeing a login page 
+  // makes panel and insets creatss teh labels, text fields, stuff like that 
+  // after calling this u can call the getPanel to get the panel made by the constructor
   public Login(){
     pan = new Panel();
     in = new Insets(0, IND, 0, IND);
 
-    makeLabel("AppID", 0, 0);
-    appid = makeTextField(SIZE, 0, 1);
+    GridBagConstraints bb = new GridBagConstraints();
+    bb.gridx = 0;
+    bb.gridy = 0;
+    bb.insets = in;
+    JLabel label = new JLabel("Log In");
+    pan.add(label, bb);
+
+    makeLabel("AppID", 0, 1);
+    appid = makeTextField(0, 2);
     
-    makeLabel("User", 0, 2);
-    user = makeTextField(SIZE, 0, 3);
+    makeLabel("User", 0, 3);
+    user = makeTextField(0, 4);
     
     //https://docs.oracle.com/javase/7/docs/api/javax/swing/JPasswordField.html
-    makeLabel("Password", 0, 4);
+    makeLabel("Password", 0, 5);
     GridBagConstraints b = new GridBagConstraints();
     b.gridx = 0;
-    b.gridy = 5;
+    b.gridy = 6;
     b.insets = in;
     pass = new JPasswordField();
 
@@ -55,14 +70,21 @@ public class Login{
 
     pan.add(pass, b);
 
-    button = makeButton("Log In", 0, 6);
+    button = makeButton("Log In", 0, 7);
+    pan.setF(F, S);
+    label.setFont(new Font(F, Font.BOLD, S+5));
 
   }
 
+  // returns the button object 
+  // only useful for the main class 
   public JButton getButton(){ return button; }
 
+  // retunrs the panel for adding to the window
   public JPanel getPanel(){ return pan; }
 
+  // a method for clearing the fields so that if the password or username is wrong 
+  // it resets the fields
   public void reset(){
     appid.setMinimumSize(DIM);
     appid.setMaximumSize(DIM);
@@ -83,6 +105,10 @@ public class Login{
     pass.setText("");
   }
 
+  // code to make it a label this is made to save lines and make it more readable 
+  // as i need to create multiple labels 
+  // str - is string of the label, x is the x coordinate of the gridbag constraints 
+  // y is the y coordinate of the gridbagconstraints 
   private void makeLabel(String str, int x, int y){
     GridBagConstraints b = new GridBagConstraints();
     b.gridx = x;
@@ -92,7 +118,8 @@ public class Login{
     pan.add(label, b);
   }
 
-  private JTextField makeTextField(int size, int x, int y){
+  // same thing as the label just to save code and make it more readable 
+  private JTextField makeTextField(int x, int y){
     GridBagConstraints b = new GridBagConstraints();
     b.gridx = x;
     b.gridy = y;
@@ -108,6 +135,8 @@ public class Login{
     return field;
   }
 
+  // creates the button also made in a function for readability 
+  // same as label 
   private JButton makeButton(String str, int x, int y){
     GridBagConstraints b = new GridBagConstraints();
     b.gridx = x;
@@ -118,6 +147,8 @@ public class Login{
     return button;
   }
   
+  // returns the log in details that were enterd
+  // TODO - could add encryption ??
   public String[] getLogInDetails(){
     String[] temp = new String[3];
     temp[0] = appid.getText();
