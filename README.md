@@ -1,5 +1,5 @@
 # RKDAPI
 
-My IB Comp Sci IA that I am working on.
+A project written to understand the rkdapi and learn how to parse their json data into ui made in java swing.
 
 
